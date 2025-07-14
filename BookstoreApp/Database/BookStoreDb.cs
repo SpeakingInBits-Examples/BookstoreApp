@@ -11,7 +11,7 @@ public class BookStoreDb : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(@"Server=(localdb\mssqllocaldb);Database=BookstoreDb;Trusted_Connection=True;TrustServerCertificate=True;");
+        optionsBuilder.UseSqlServer("Server=(localdb\\mssqllocaldb);Database=BookstoreDb;Trusted_Connection=True;Encrypt=False");
     }
 
     // Add entities to track in the database as DbSets below
