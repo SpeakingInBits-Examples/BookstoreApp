@@ -65,10 +65,10 @@ public static class BookDb
     {
         using BookStoreDb db = new();
 
-        Book? b = await db.Books.FindAsync(id);
-        if (b != null)
+        Book? bookToDelete = await db.Books.FindAsync(id);
+        if (bookToDelete != null)
         {
-            db.Books.Remove(b);
+            db.Books.Remove(bookToDelete);
             await db.SaveChangesAsync();
         }
     }
