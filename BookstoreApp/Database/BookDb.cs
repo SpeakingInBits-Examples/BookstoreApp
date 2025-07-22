@@ -76,12 +76,12 @@ public static class BookDb
     /// <summary>
     /// Asynchronously deletes the specified book from the database.
     /// </summary>
-    /// <param name="b">The book to be deleted. Must not be null.</param>
+    /// <param name="book">The book to be deleted. Must not be null.</param>
     /// <returns>A task that represents the asynchronous delete operation.</returns>
-    public static async Task DeleteAsync(Book b)
+    public static async Task DeleteAsync(Book book)
     {
         using BookStoreDb db = new();
-        db.Books.Remove(b);
+        db.Books.Remove(book);
         await db.SaveChangesAsync();
     }
 }
