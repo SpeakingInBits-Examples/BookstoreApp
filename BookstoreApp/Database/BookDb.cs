@@ -29,6 +29,21 @@ public static class BookDb
     }
 
     /// <summary>
+    /// Asynchronously retrieves a book from the database by its title.
+    /// </summary>
+    /// <param name="title">The title of the book to search for. Cannot be null or empty.</param>
+    /// <returns>A <see cref="Book"/> object representing the book with the specified title, or <see langword="null"/> if no such
+    /// book is found.</returns>
+    public static async Task<Book?> GetBookByTitleAsync(string title)
+    {
+        using BookStoreDb db = new();
+
+        Book? book = await db.Books.Where(b => title == b.Title).FirstOrDefaultAsync();
+
+        return book;
+    }
+
+    /// <summary>
     /// Asynchronously adds a new book to the database.
     /// </summary>
     /// <param name="book">The book to be added. Cannot be null.</param>
