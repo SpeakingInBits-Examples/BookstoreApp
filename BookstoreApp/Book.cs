@@ -29,6 +29,16 @@ namespace BookstoreApp
         public double Price { get; set; }
 
         /// <summary>
+        /// The 13 digit ISBN number. No dashes allowed, digits only
+        /// </summary>
+        public required string ISBN { get; set; }
+
+        /// <summary>
+        /// The optional user facing description of the book.
+        /// </summary>
+        public string? Description { get; set; }
+
+        /// <summary>
         /// Displays book information
         /// </summary>
         /// <returns></returns>
