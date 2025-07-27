@@ -39,6 +39,11 @@ namespace BookstoreApp.Models
         public string? Description { get; set; }
 
         /// <summary>
+        /// Gets or sets the list of genres associated with the item.
+        /// </summary>
+        public List<Genre> Genres { get; set; } = [];
+
+        /// <summary>
         /// Displays book information
         /// </summary>
         /// <returns></returns>
