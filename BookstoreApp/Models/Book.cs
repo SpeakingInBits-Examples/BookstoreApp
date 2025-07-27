@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookstoreApp
+namespace BookstoreApp.Models
 {
     /// <summary>
     /// Represents an individual book for sale

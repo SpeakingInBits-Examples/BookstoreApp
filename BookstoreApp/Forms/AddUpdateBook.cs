@@ -1,8 +1,9 @@
 using BookstoreApp.Database;
+using BookstoreApp.Models;
 using System;
 using System.Windows.Forms;
 
-namespace BookstoreApp
+namespace BookstoreApp.Forms
 {
     public partial class AddUpdateBook : Form
     {
@@ -23,7 +24,7 @@ namespace BookstoreApp
 
         private void SetupForm()
         {
-            this.Text = _isUpdate ? "Update Book" : "Add Book";
+            Text = _isUpdate ? "Update Book" : "Add Book";
             txtTitle = new TextBox { Left = 20, Top = 20, Width = 200, Text = string.Empty, PlaceholderText = "Title" };
             txtPrice = new TextBox { Left = 20, Top = 60, Width = 200, Text = string.Empty, PlaceholderText = "Price" };
             txtISBN = new TextBox { Left = 20, Top = 100, Width = 200, Text = string.Empty, PlaceholderText = "ISBN (13 digits)" };
@@ -37,10 +38,10 @@ namespace BookstoreApp
 
             btnSave = new Button { Left = 20, Top = 140, Width = 200, Text = "Save" };
             btnSave.Click += BtnSave_Click;
-            this.Controls.Add(txtTitle);
-            this.Controls.Add(txtPrice);
-            this.Controls.Add(txtISBN);
-            this.Controls.Add(btnSave);
+            Controls.Add(txtTitle);
+            Controls.Add(txtPrice);
+            Controls.Add(txtISBN);
+            Controls.Add(btnSave);
         }
 
         private async void BtnSave_Click(object sender, EventArgs e)
@@ -77,14 +78,14 @@ namespace BookstoreApp
                 await BookDb.UpdateAsync(_book);
             else
                 await BookDb.AddAsync(_book);
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void InitializeComponent()
         {
-            this.ClientSize = new System.Drawing.Size(250, 200);
-            this.Text = "Book";
+            ClientSize = new Size(250, 200);
+            Text = "Book";
         }
     }
 }
