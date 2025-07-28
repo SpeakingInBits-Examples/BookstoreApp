@@ -53,13 +53,14 @@ public static class BookDb
     {
         using BookStoreDb db = new();
 
+        // Add the book to the context first
+        db.Books.Add(book);
+
         // Mark each genre as unchanged so EF does not try to add them
         foreach (var genre in book.Genres)
         {
             db.Entry(genre).State = EntityState.Unchanged;
         }
-
-        db.Books.Add(book);
         await db.SaveChangesAsync();
     }
 
