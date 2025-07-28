@@ -1,5 +1,6 @@
 using BookstoreApp.Database;
 using BookstoreApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace BookstoreApp.Forms
         private TextBox txtPrice;
         private TextBox txtISBN;
         private TextBox txtDescription;
-        private ComboBox cmbGenres;
+        private CheckedListBox clbGenres;
         private Button btnSave;
         private List<Genre> _genres = new();
 
@@ -36,7 +37,7 @@ namespace BookstoreApp.Forms
             txtPrice = new TextBox { Left = 20, Top = 60, Width = 200, Text = string.Empty, PlaceholderText = "Price" };
             txtISBN = new TextBox { Left = 20, Top = 100, Width = 200, Text = string.Empty, PlaceholderText = "ISBN (13 digits)" };
             txtDescription = new TextBox { Left = 20, Top = 140, Width = 200, Height = 60, Multiline = true, PlaceholderText = "Description" };
-            cmbGenres = new ComboBox { Left = 20, Top = 210, Width = 200, DropDownStyle = ComboBoxStyle.DropDownList };
+            clbGenres = new CheckedListBox { Left = 20, Top = 210, Width = 200, Height = 80 };
 
             if (_book != null)
             {
@@ -46,29 +47,31 @@ namespace BookstoreApp.Forms
                 txtDescription.Text = _book.Description ?? string.Empty;
             }
 
-            btnSave = new Button { Left = 20, Top = 250, Width = 200, Text = "Save" };
+            btnSave = new Button { Left = 20, Top = 300, Width = 200, Text = "Save" };
             btnSave.Click += BtnSave_Click;
             Controls.Add(txtTitle);
             Controls.Add(txtPrice);
             Controls.Add(txtISBN);
             Controls.Add(txtDescription);
-            Controls.Add(cmbGenres);
+            Controls.Add(clbGenres);
             Controls.Add(btnSave);
         }
 
         private async void LoadGenresAsync()
         {
             using var db = new BookStoreDb();
-            _genres = await Task.Run(() => db.Genres.OrderBy(g => g.Name).ToList());
-            cmbGenres.DataSource = _genres;
-            cmbGenres.DisplayMember = nameof(Genre.Name);
-            cmbGenres.ValueMember = nameof(Genre.GenreId);
-            if (_book != null && _book.Genres.Count > 0)
+            _genres = await db.Genres.OrderBy(g => g.Name).ToListAsync();
+            clbGenres.Items.Clear();
+            foreach (var genre in _genres)
             {
-                var genre = _book.Genres.FirstOrDefault();
-                if (genre != null)
-                    cmbGenres.SelectedValue = genre.GenreId;
+                int idx = clbGenres.Items.Add(genre);
+                // Check the genre if the book already has it
+                if (_book != null && _book.Genres.Any(g => g.GenreId == genre.GenreId))
+                {
+                    clbGenres.SetItemChecked(idx, true);
+                }
             }
+            clbGenres.DisplayMember = nameof(Genre.Name);
         }
 
         private async void BtnSave_Click(object sender, EventArgs e)
@@ -119,7 +122,7 @@ namespace BookstoreApp.Forms
 
         private void InitializeComponent()
         {
-            ClientSize = new System.Drawing.Size(250, 300);
+            ClientSize = new System.Drawing.Size(250, 350);
             Text = "Book";
         }
     }
