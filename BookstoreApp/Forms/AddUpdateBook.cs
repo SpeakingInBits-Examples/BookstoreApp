@@ -76,48 +76,49 @@ namespace BookstoreApp.Forms
 
         private async void BtnSave_Click(object sender, EventArgs e)
         {
-            if (_book is null)
-            {
-                string isbn = txtISBN.Text.Trim();
-                if (isbn.Length != 13 || !long.TryParse(isbn, out _))
-                {
-                    MessageBox.Show("ISBN must be exactly 13 digits (numbers only).");
-                    return;
-                }
-                _book = new Book { Title = txtTitle.Text, ISBN = isbn };
-            }
-            else
-            {
-                _book.Title = txtTitle.Text;
-                string isbn = txtISBN.Text.Trim();
-                if (isbn.Length != 13 || !long.TryParse(isbn, out _))
-                {
-                    MessageBox.Show("ISBN must be exactly 13 digits (numbers only).");
-                    return;
-                }
-                _book.ISBN = isbn;
-            }
-            if (double.TryParse(txtPrice.Text, out double price))
-                _book.Price = price;
-            else
-            {
-                MessageBox.Show("Invalid price.");
-                return;
-            }
-            _book.Description = txtDescription.Text;
-            var selectedGenres = new List<Genre>();
-            foreach (var item in clbGenres.CheckedItems)
-            {
-                if (item is Genre genre)
-                    selectedGenres.Add(genre);
-            }
-            _book.Genres = selectedGenres;
-            if (_isUpdate)
-                await BookDb.UpdateAsync(_book);
-            else
-                await BookDb.AddAsync(_book);
-            DialogResult = DialogResult.OK;
-            Close();
+            throw new NotImplementedException();
+            //if (_book is null)
+            //{
+            //    string isbn = txtISBN.Text.Trim();
+            //    if (isbn.Length != 13 || !long.TryParse(isbn, out _))
+            //    {
+            //        MessageBox.Show("ISBN must be exactly 13 digits (numbers only).");
+            //        return;
+            //    }
+            //    _book = new Book { Title = txtTitle.Text, ISBN = isbn };
+            //}
+            //else
+            //{
+            //    _book.Title = txtTitle.Text;
+            //    string isbn = txtISBN.Text.Trim();
+            //    if (isbn.Length != 13 || !long.TryParse(isbn, out _))
+            //    {
+            //        MessageBox.Show("ISBN must be exactly 13 digits (numbers only).");
+            //        return;
+            //    }
+            //    _book.ISBN = isbn;
+            //}
+            //if (double.TryParse(txtPrice.Text, out double price))
+            //    _book.Price = price;
+            //else
+            //{
+            //    MessageBox.Show("Invalid price.");
+            //    return;
+            //}
+            //_book.Description = txtDescription.Text;
+            //var selectedGenres = new List<Genre>();
+            //foreach (var item in clbGenres.CheckedItems)
+            //{
+            //    if (item is Genre genre)
+            //        selectedGenres.Add(genre);
+            //}
+            //_book.Genres = selectedGenres;
+            //if (_isUpdate)
+            //    await BookDb.UpdateAsync(_book);
+            //else
+            //    await BookDb.AddAsync(_book);
+            //DialogResult = DialogResult.OK;
+            //Close();
         }
 
         private void InitializeComponent()

@@ -44,6 +44,11 @@ namespace BookstoreApp.Models
         public List<Genre> Genres { get; set; } = [];
 
         /// <summary>
+        /// Gets or sets the author of the book.
+        /// </summary>
+        public required Author BookAuthor { get; set; }
+
+        /// <summary>
         /// Displays book information
         /// </summary>
         /// <returns></returns>
