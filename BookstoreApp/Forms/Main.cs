@@ -15,6 +15,7 @@ namespace BookstoreApp
             InitializeComponent();
             btnAddUpdate.Click += BtnAddUpdate_Click;
             btnDelete.Click += BtnDelete_Click;
+            button1.Click += BtnAddAuthor_Click;
             LoadBooksAsync();
         }
 
@@ -47,6 +48,15 @@ namespace BookstoreApp
             {
                 await BookDb.DeleteAsync(selectedBook.Id);
                 LoadBooksAsync();
+            }
+        }
+
+        // Author management event handlers
+        private void BtnAddAuthor_Click(object sender, EventArgs e)
+        {
+            using (var form = new ManageAuthorsForm())
+            {
+                form.ShowDialog();
             }
         }
     }

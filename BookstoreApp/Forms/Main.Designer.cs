@@ -31,6 +31,9 @@
             lstBooks = new ListBox();
             btnAddUpdate = new Button();
             btnDelete = new Button();
+            groupBox1 = new GroupBox();
+            button1 = new Button();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // lstBooks
@@ -59,16 +62,37 @@
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(button1);
+            groupBox1.Location = new Point(430, 143);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(158, 94);
+            groupBox1.TabIndex = 3;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Author Management";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(6, 35);
+            button1.Name = "button1";
+            button1.Size = new Size(146, 48);
+            button1.TabIndex = 0;
+            button1.Text = "Manage Authors";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(600, 430);
+            Controls.Add(groupBox1);
             Controls.Add(lstBooks);
             Controls.Add(btnAddUpdate);
             Controls.Add(btnDelete);
-            Name = "Form1";
+            Name = "Main";
             Text = "Bookstore - Books";
+            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
 
         }
@@ -78,5 +102,7 @@
         private System.Windows.Forms.ListBox lstBooks;
         private System.Windows.Forms.Button btnAddUpdate;
         private System.Windows.Forms.Button btnDelete;
+        private GroupBox groupBox1;
+        private Button button1;
     }
 }
