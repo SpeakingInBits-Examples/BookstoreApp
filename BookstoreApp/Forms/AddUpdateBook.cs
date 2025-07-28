@@ -19,6 +19,7 @@ namespace BookstoreApp.Forms
         private TextBox txtDescription;
         private CheckedListBox clbGenres;
         private Button btnSave;
+        private ComboBox cmbAuthors;
         private List<Genre> _genres = new();
 
         public AddUpdateBook(Book? book = null)
@@ -38,6 +39,7 @@ namespace BookstoreApp.Forms
             txtISBN = new TextBox { Left = 20, Top = 100, Width = 200, Text = string.Empty, PlaceholderText = "ISBN (13 digits)" };
             txtDescription = new TextBox { Left = 20, Top = 140, Width = 200, Height = 60, Multiline = true, PlaceholderText = "Description" };
             clbGenres = new CheckedListBox { Left = 20, Top = 210, Width = 200, Height = 80 };
+            cmbAuthors = new ComboBox { Left = 20, Top = 300, Width = 200, DropDownStyle = ComboBoxStyle.DropDownList };
 
             if (_book != null)
             {
@@ -47,13 +49,14 @@ namespace BookstoreApp.Forms
                 txtDescription.Text = _book.Description ?? string.Empty;
             }
 
-            btnSave = new Button { Left = 20, Top = 300, Width = 200, Text = "Save" };
+            btnSave = new Button { Left = 20, Top = 390, Width = 200, Text = "Save" };
             btnSave.Click += BtnSave_Click;
             Controls.Add(txtTitle);
             Controls.Add(txtPrice);
             Controls.Add(txtISBN);
             Controls.Add(txtDescription);
             Controls.Add(clbGenres);
+            Controls.Add(cmbAuthors);
             Controls.Add(btnSave);
         }
 
@@ -72,6 +75,15 @@ namespace BookstoreApp.Forms
                 }
             }
             clbGenres.DisplayMember = nameof(Genre.Name);
+            // Load authors
+            var authors = await db.Authors.OrderBy(a => a.Name).ToListAsync();
+            cmbAuthors.DataSource = authors;
+            cmbAuthors.DisplayMember = nameof(Author.Name);
+            cmbAuthors.ValueMember = nameof(Author.Id);
+            if (_book != null && _book.BookAuthor != null)
+            {
+                cmbAuthors.SelectedValue = _book.BookAuthor.Id;
+            }
         }
 
         private async void BtnSave_Click(object sender, EventArgs e)
@@ -113,6 +125,11 @@ namespace BookstoreApp.Forms
             //        selectedGenres.Add(genre);
             //}
             //_book.Genres = selectedGenres;
+            // // Set author
+            //if (cmbAuthors.SelectedItem is Author author)
+            //{
+            //    _book.BookAuthor = author;
+            //}
             //if (_isUpdate)
             //    await BookDb.UpdateAsync(_book);
             //else
@@ -123,7 +140,7 @@ namespace BookstoreApp.Forms
 
         private void InitializeComponent()
         {
-            ClientSize = new System.Drawing.Size(250, 350);
+            ClientSize = new System.Drawing.Size(250, 450);
             Text = "Book";
         }
     }
