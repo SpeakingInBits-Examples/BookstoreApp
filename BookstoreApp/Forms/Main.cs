@@ -16,8 +16,6 @@ namespace BookstoreApp
             btnAddUpdate.Click += BtnAddUpdate_Click;
             btnDelete.Click += BtnDelete_Click;
             button1.Click += BtnAddAuthor_Click;
-            button2.Click += BtnUpdateAuthor_Click;
-            button3.Click += BtnDeleteAuthor_Click;
             LoadBooksAsync();
         }
 
@@ -55,20 +53,6 @@ namespace BookstoreApp
 
         // Author management event handlers
         private void BtnAddAuthor_Click(object sender, EventArgs e)
-        {
-            using (var form = new ManageAuthorsForm())
-            {
-                form.ShowDialog();
-            }
-        }
-        private void BtnUpdateAuthor_Click(object sender, EventArgs e)
-        {
-            using (var form = new ManageAuthorsForm())
-            {
-                form.ShowDialog();
-            }
-        }
-        private void BtnDeleteAuthor_Click(object sender, EventArgs e)
         {
             using (var form = new ManageAuthorsForm())
             {
