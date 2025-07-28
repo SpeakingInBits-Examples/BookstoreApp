@@ -102,8 +102,13 @@ namespace BookstoreApp.Forms
                 return;
             }
             _book.Description = txtDescription.Text;
-            var selectedGenre = cmbGenres.SelectedItem as Genre;
-            _book.Genres = selectedGenre != null ? new List<Genre> { selectedGenre } : new List<Genre>();
+            var selectedGenres = new List<Genre>();
+            foreach (var item in clbGenres.CheckedItems)
+            {
+                if (item is Genre genre)
+                    selectedGenres.Add(genre);
+            }
+            _book.Genres = selectedGenres;
             if (_isUpdate)
                 await BookDb.UpdateAsync(_book);
             else
