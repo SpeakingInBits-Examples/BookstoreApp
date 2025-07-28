@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookstoreApp
+namespace BookstoreApp.Models
 {
     /// <summary>
     /// Represents an individual book for sale
@@ -37,6 +37,11 @@ namespace BookstoreApp
         /// The optional user facing description of the book.
         /// </summary>
         public string? Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of genres associated with the item.
+        /// </summary>
+        public List<Genre> Genres { get; set; } = [];
 
         /// <summary>
         /// Displays book information

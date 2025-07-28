@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BookstoreApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,7 +53,14 @@ public static class BookDb
     {
         using BookStoreDb db = new();
 
+        // Add the book to the context first
         db.Books.Add(book);
+
+        // Mark each genre as unchanged so EF does not try to add them
+        foreach (var genre in book.Genres)
+        {
+            db.Entry(genre).State = EntityState.Unchanged;
+        }
         await db.SaveChangesAsync();
     }
 
@@ -65,7 +73,14 @@ public static class BookDb
     {
         using BookStoreDb db = new();
 
+        // Attach the book entity first
         db.Books.Update(book);
+
+        // Mark each genre as unchanged so EF does not try to add or update them
+        foreach (var genre in book.Genres)
+        {
+            db.Entry(genre).State = EntityState.Unchanged;
+        }
         await db.SaveChangesAsync();
     }
 
