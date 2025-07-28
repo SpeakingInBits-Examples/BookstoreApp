@@ -53,6 +53,12 @@ public static class BookDb
     {
         using BookStoreDb db = new();
 
+        // Mark each genre as unchanged so EF does not try to add them
+        foreach (var genre in book.Genres)
+        {
+            db.Entry(genre).State = EntityState.Unchanged;
+        }
+
         db.Books.Add(book);
         await db.SaveChangesAsync();
     }
@@ -65,6 +71,12 @@ public static class BookDb
     public static async Task UpdateAsync(Book book)
     {
         using BookStoreDb db = new();
+
+        // Mark each genre as unchanged so EF does not try to add or update them
+        foreach (var genre in book.Genres)
+        {
+            db.Entry(genre).State = EntityState.Unchanged;
+        }
 
         db.Books.Update(book);
         await db.SaveChangesAsync();
